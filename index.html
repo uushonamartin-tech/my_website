@@ -1,322 +1,736 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="Martin's portfolio — software development, web development, Linux, Android and ethical cybersecurity.">
+  <title>Martin | Developer & Tech Enthusiast</title>
 
-    <meta charset="UTF-8">
+  <style>
+    :root {
+      --bg: #080b14;
+      --surface: #101625;
+      --surface2: #151d30;
+      --text: #f4f7ff;
+      --muted: #a3aec4;
+      --blue: #69a7ff;
+      --purple: #a78bfa;
+      --border: rgba(255,255,255,.09);
+      --gradient: linear-gradient(120deg,#69a7ff,#a78bfa);
+    }
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <title>Martin | Developer Portfolio</title>
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
 
-    <link rel="stylesheet" href="style.css">
+    body {
+      background:
+        radial-gradient(ellipse at 15% 0%,rgba(69,102,210,.14),transparent 40%),
+        radial-gradient(ellipse at 95% 35%,rgba(139,92,246,.09),transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(1100px,90%); margin: auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,11,20,.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.55rem;
+      font-weight: 850;
+      letter-spacing: -1px;
+    }
+
+    .logo span { color: var(--blue); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: .92rem;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--blue); }
+
+    .menu-btn {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: white;
+      border-radius: 10px;
+      padding: 7px 12px;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 610px;
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      align-items: center;
+      gap: 50px;
+      padding-top: 75px;
+      padding-bottom: 85px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(105,167,255,.25);
+      background: rgba(105,167,255,.07);
+      color: #b7d3ff;
+      padding: 7px 13px;
+      border-radius: 50px;
+      font-size: .8rem;
+      margin-bottom: 23px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #64e6ad;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #64e6ad;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem,7vw,5.2rem);
+      line-height: 1.08;
+      letter-spacing: -3px;
+      font-weight: 850;
+      margin-bottom: 22px;
+    }
+
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.05rem,3vw,1.45rem);
+      color: #d5deef;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .hero p, .section-intro {
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 19px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-weight: 700;
+      font-size: .93rem;
+      transition: transform .2s,border-color .2s,background .2s;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      color: #080b14;
+      background: var(--gradient);
+      border: 0;
+    }
+
+    .btn-secondary { background: rgba(255,255,255,.035); }
+    .btn-secondary:hover { border-color: var(--blue); }
+
+    .hero-visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 330px;
+    }
+
+    .orbit {
+      position: absolute;
+      width: 285px;
+      height: 285px;
+      border: 1px solid rgba(105,167,255,.22);
+      border-radius: 50%;
+      animation: spin 24s linear infinite;
+    }
+
+    .orbit::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      left: 30px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 22px var(--blue);
+    }
+
+    .orbit-two {
+      width: 225px;
+      height: 225px;
+      border-color: rgba(167,139,250,.25);
+      animation-direction: reverse;
+      animation-duration: 17s;
+    }
+
+    .orbit-two::before {
+      background: var(--purple);
+      box-shadow: 0 0 22px var(--purple);
+      top: auto;
+      bottom: 18px;
+      left: 45px;
+    }
+
+    .code-card {
+      position: relative;
+      z-index: 2;
+      width: min(290px,90%);
+      padding: 25px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(145deg,#18233b,#0c1220);
+      box-shadow: 0 25px 80px rgba(0,0,0,.4);
+      transform: rotate(-3deg);
+    }
+
+    .window-dots { display: flex; gap: 6px; margin-bottom: 22px; }
+    .window-dots i { width: 9px; height: 9px; border-radius: 50%; background: #fb7185; }
+    .window-dots i:nth-child(2) { background: #fbbf24; }
+    .window-dots i:nth-child(3) { background: #4ade80; }
+
+    .code-line { color: #c2cce0; font: .88rem/2 monospace; }
+    .code-line .purple { color: #c4a7ff; }
+    .code-line .blue { color: #83baff; }
+    .code-line .green { color: #7ee6b2; }
+
+    section { padding: 85px 0; }
+
+    .section-heading { margin-bottom: 38px; }
+
+    .section-label {
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 800;
+      font-size: .76rem;
+      margin-bottom: 8px;
+    }
+
+    h2.section-title {
+      font-size: clamp(2rem,5vw,3rem);
+      line-height: 1.2;
+      letter-spacing: -1.2px;
+      margin-bottom: 13px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+    }
+
+    .panel {
+      background: rgba(16,22,37,.78);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 27px;
+    }
+
+    .panel p { color: var(--muted); margin-top: 12px; }
+
+    .focus-list { display: grid; gap: 15px; margin-top: 18px; }
+
+    .focus-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #dce5f5;
+    }
+
+    .focus-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      border-radius: 11px;
+      background: rgba(105,167,255,.1);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 17px;
+    }
+
+    .skill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 19px;
+    }
+
+    .skill-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .skill-top span:last-child { color: var(--blue); }
+
+    .track {
+      height: 6px;
+      background: #242e42;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .bar {
+      width: 0;
+      height: 100%;
+      border-radius: 20px;
+      background: var(--gradient);
+      transition: width 1.3s ease;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 20px;
+    }
+
+    .project {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg,#131d31,#0d1220);
+      border: 1px solid var(--border);
+      border-radius: 19px;
+      padding: 26px;
+      transition: transform .25s,border-color .25s;
+    }
+
+    .project:hover {
+      transform: translateY(-6px);
+      border-color: rgba(105,167,255,.45);
+    }
+
+    .project-icon {
+      display: grid;
+      place-items: center;
+      width: 53px;
+      height: 53px;
+      border-radius: 15px;
+      background: rgba(105,167,255,.1);
+      font-size: 1.55rem;
+      margin-bottom: 20px;
+    }
+
+    .project h3 { font-size: 1.18rem; margin-bottom: 10px; }
+    .project p { color: var(--muted); font-size: .94rem; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 19px; }
+
+    .tag {
+      color: #b9d4ff;
+      background: rgba(105,167,255,.08);
+      border: 1px solid rgba(105,167,255,.16);
+      padding: 4px 9px;
+      border-radius: 6px;
+      font-size: .75rem;
+    }
+
+    .contact-panel {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 48px 25px;
+      border: 1px solid rgba(105,167,255,.2);
+      border-radius: 24px;
+      background: radial-gradient(ellipse at top,rgba(83,110,220,.17),transparent 65%),var(--surface);
+    }
+
+    .contact-panel p {
+      max-width: 530px;
+      margin: 0 auto;
+      color: var(--muted);
+    }
+
+    .email-address {
+      display: inline-block;
+      color: #b8d3ff;
+      overflow-wrap: anywhere;
+      margin: 18px 0 23px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
+      font-size: .86rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a:hover { color: var(--blue); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .65s ease,transform .65s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 760px) {
+      .menu-btn { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px 5% 18px;
+        background: #0b101c;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 0; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding-top: 65px;
+        padding-bottom: 50px;
+      }
+
+      h1 { letter-spacing: -2px; }
+      .hero-visual { min-height: 310px; }
+      .about-grid,.projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      section { padding: 65px 0; }
+      .panel,.project { padding: 22px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
 </head>
 
 <body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="#home" aria-label="Martin home">M<span>.</span></a>
 
+      <button class="menu-btn" id="menuBtn"
+        aria-label="Open navigation" aria-expanded="false"
+        aria-controls="navLinks">☰</button>
 
-<header>
-
-    <h1>Martin</h1>
-
-    <button class="menu-button" id="menuButton">
-        ☰
-    </button>
-
-    <nav id="navigation">
-
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
         <a href="#home">Home</a>
-
         <a href="#about">About</a>
-
         <a href="#skills">Skills</a>
-
         <a href="#projects">Projects</a>
-
         <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-    </nav>
+  <main>
+    <section class="container hero" id="home">
+      <div class="reveal">
+        <div class="eyebrow"><span class="dot"></span> LEARNING · BUILDING · GROWING</div>
 
-</header>
+        <h1>Hi, I'm <span class="gradient-text">Martin.</span></h1>
 
-
-<!-- HOME -->
-
-<section id="home" class="hero">
-
-    <div class="hero-content">
-
-        <p class="welcome">
-            WELCOME TO MY WEBSITE
-        </p>
-
-        <h2>
-            Hi, I'm <span>Martin</span>
+        <h2>Future Software Developer<br>
+          <span class="gradient-text">Tech Enthusiast & Cybersecurity Learner</span>
         </h2>
 
-        <h3>
-            <span id="typing"></span>
-        </h3>
-
         <p>
-            I am passionate about technology,
-            programming, cybersecurity, Linux,
-            web development and Android development.
+          I turn curiosity into code. I'm learning web and Android development,
+          Linux, programming and ethical cybersecurity — one project at a time.
         </p>
 
-        <div class="hero-buttons">
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">Explore My Projects ↗</a>
+          <a class="btn btn-secondary" href="#contact">Let's Connect</a>
+        </div>
+      </div>
 
-            <a href="#projects" class="button">
-                View Projects
-            </a>
+      <div class="hero-visual reveal" aria-label="Decorative code illustration">
+        <div class="orbit"></div>
+        <div class="orbit orbit-two"></div>
 
-            <a href="#contact" class="button secondary">
-                Contact Me
-            </a>
+        <div class="code-card">
+          <div class="window-dots"><i></i><i></i><i></i></div>
+          <div class="code-line"><span class="purple">const</span> developer = {</div>
+          <div class="code-line">&nbsp; name: <span class="green">'Martin'</span>,</div>
+          <div class="code-line">&nbsp; passion: <span class="green">'Technology'</span>,</div>
+          <div class="code-line">&nbsp; learning: <span class="blue">true</span>,</div>
+          <div class="code-line">&nbsp; neverGiveUp: <span class="blue">true</span></div>
+          <div class="code-line">};</div>
+          <div class="code-line" style="margin-top:12px;color:#8a98b2">// Building my future...</div>
+        </div>
+      </div>
+    </section>
 
+    <section id="about">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-label">A little about me</div>
+          <h2 class="section-title">Curious mind.<br><span class="gradient-text">Builder's mindset.</span></h2>
+          <p class="section-intro">Every expert starts as a beginner. I'm putting in the work to turn my interest in technology into real skills and useful projects.</p>
         </div>
 
-    </div>
-
-</section>
-
-
-<!-- ABOUT -->
-
-<section id="about">
-
-    <h2>About Me</h2>
-
-    <p>
-        My name is Martin. I am an aspiring software
-        developer and cybersecurity learner who enjoys
-        building technology projects.
-    </p>
-
-    <p>
-        I am currently learning web development,
-        Android development, Linux, programming and
-        ethical cybersecurity.
-    </p>
-
-</section>
-
-
-<!-- SKILLS -->
-
-<section id="skills">
-
-    <h2>My Skills</h2>
-
-    <div class="skill-box">
-
-        <div class="skill">
-
-            <div class="skill-title">
-                <span>HTML</span>
-                <span>90%</span>
-            </div>
-
-            <div class="skill-bar">
-                <div class="skill-progress html"></div>
-            </div>
-
-        </div>
-
-
-        <div class="skill">
-
-            <div class="skill-title">
-                <span>CSS</span>
-                <span>85%</span>
-            </div>
-
-            <div class="skill-bar">
-                <div class="skill-progress css"></div>
-            </div>
-
-        </div>
-
-
-        <div class="skill">
-
-            <div class="skill-title">
-                <span>JavaScript</span>
-                <span>65%</span>
-            </div>
-
-            <div class="skill-bar">
-                <div class="skill-progress javascript"></div>
-            </div>
-
-        </div>
-
-
-        <div class="skill">
-
-            <div class="skill-title">
-                <span>Linux</span>
-                <span>70%</span>
-            </div>
-
-            <div class="skill-bar">
-                <div class="skill-progress linux"></div>
-            </div>
-
-        </div>
-
-
-        <div class="skill">
-
-            <div class="skill-title">
-                <span>Android</span>
-                <span>60%</span>
-            </div>
-
-            <div class="skill-bar">
-                <div class="skill-progress android"></div>
-            </div>
-
-        </div>
-
-
-        <div class="skill">
-
-            <div class="skill-title">
-                <span>Cybersecurity</span>
-                <span>55%</span>
-            </div>
-
-            <div class="skill-bar">
-                <div class="skill-progress cybersecurity"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- PROJECTS -->
-
-<section id="projects">
-
-    <h2>My Projects</h2>
-
-    <div class="projects">
-
-        <div class="card">
-
-            <h3>🌐 Personal Website</h3>
-
+        <div class="about-grid">
+          <article class="panel reveal">
+            <h3>My journey</h3>
             <p>
-                My personal portfolio website built
-                using HTML, CSS and JavaScript.
+              My name is Martin. I'm an aspiring software developer and
+              cybersecurity learner who enjoys exploring how technology works
+              and creating things with code.
             </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>📱 Android Apps</h3>
-
             <p>
-                Building Android applications and
-                learning Kotlin.
+              I'm developing my skills through hands-on practice with websites,
+              Android applications, Linux and networking. My goal is to keep
+              learning, build useful tools and grow into a capable developer.
             </p>
+          </article>
 
+          <article class="panel reveal">
+            <h3>What I'm exploring</h3>
+            <div class="focus-list">
+              <div class="focus-item"><span class="focus-icon">🌐</span> Web development</div>
+              <div class="focus-item"><span class="focus-icon">📱</span> Android app development</div>
+              <div class="focus-item"><span class="focus-icon">🐧</span> Linux & networking</div>
+              <div class="focus-item"><span class="focus-icon">🛡️</span> Ethical cybersecurity</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-label">My toolkit</div>
+          <h2 class="section-title">Skills I'm <span class="gradient-text">developing.</span></h2>
+          <p class="section-intro">These are self-assessed learning indicators, not formal test scores or professional certifications.</p>
         </div>
 
+        <div class="skills-grid">
+          <div class="skill reveal">
+            <div class="skill-top"><span>HTML & Web structure</span><span>90%</span></div>
+            <div class="track"><div class="bar" data-width="90%"></div></div>
+          </div>
+          <div class="skill reveal">
+            <div class="skill-top"><span>CSS & Responsive design</span><span>85%</span></div>
+            <div class="track"><div class="bar" data-width="85%"></div></div>
+          </div>
+          <div class="skill reveal">
+            <div class="skill-top"><span>JavaScript</span><span>65%</span></div>
+            <div class="track"><div class="bar" data-width="65%"></div></div>
+          </div>
+          <div class="skill reveal">
+            <div class="skill-top"><span>Linux & Termux</span><span>70%</span></div>
+            <div class="track"><div class="bar" data-width="70%"></div></div>
+          </div>
+          <div class="skill reveal">
+            <div class="skill-top"><span>Android development</span><span>60%</span></div>
+            <div class="track"><div class="bar" data-width="60%"></div></div>
+          </div>
+          <div class="skill reveal">
+            <div class="skill-top"><span>Ethical cybersecurity</span><span>55%</span></div>
+            <div class="track"><div class="bar" data-width="55%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="card">
-
-            <h3>🐧 Linux Projects</h3>
-
-            <p>
-                Practicing Linux commands, Termux
-                and networking.
-            </p>
-
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-label">Things I'm working on</div>
+          <h2 class="section-title">My learning <span class="gradient-text">projects.</span></h2>
+          <p class="section-intro">A snapshot of the areas I'm exploring. I'll add links to individual repositories as each project becomes ready to share.</p>
         </div>
 
+        <div class="projects-grid">
+          <article class="project reveal">
+            <div class="project-icon">🌐</div>
+            <h3>Personal Portfolio</h3>
+            <p>A responsive personal website built to introduce my skills, interests and development journey.</p>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">GitHub Pages</span></div>
+          </article>
 
-        <div class="card">
+          <article class="project reveal">
+            <div class="project-icon">📱</div>
+            <h3>Android Applications</h3>
+            <p>Exploring Android development and building practice apps while learning Kotlin and app interfaces.</p>
+            <div class="tags"><span class="tag">Android</span><span class="tag">Kotlin</span><span class="tag">Mobile</span></div>
+          </article>
 
-            <h3>🛡️ Cybersecurity Lab</h3>
+          <article class="project reveal">
+            <div class="project-icon">🐧</div>
+            <h3>Linux Practice Lab</h3>
+            <p>Learning command-line skills, file management, networking basics and development workflows with Termux.</p>
+            <div class="tags"><span class="tag">Linux</span><span class="tag">Termux</span><span class="tag">Networking</span></div>
+          </article>
 
-            <p>
-                Learning networking, security and
-                ethical cybersecurity.
-            </p>
-
+          <article class="project reveal">
+            <div class="project-icon">🛡️</div>
+            <h3>Cybersecurity Learning</h3>
+            <p>Practising networking and security fundamentals in authorised labs, with a focus on responsible and ethical learning.</p>
+            <div class="tags"><span class="tag">Security</span><span class="tag">Networking</span><span class="tag">Ethical practice</span></div>
+          </article>
         </div>
 
+        <div style="text-align:center;margin-top:30px" class="reveal">
+          <a class="btn btn-secondary" href="https://github.com/uushonamartin-tech" target="_blank" rel="noopener noreferrer">Visit My GitHub Profile ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div class="section-label">Get in touch</div>
+          <h2 class="section-title">Have an idea? <span class="gradient-text">Let's talk.</span></h2>
+          <p>Have a question, an idea for a project, or want to connect with me about technology? Send me an email.</p>
+          <a class="email-address" href="mailto:uushonamartin16@gmail.com">uushonamartin16@gmail.com</a>
+          <div>
+            <a class="btn btn-primary" href="mailto:uushonamartin16@gmail.com?subject=Hello%20Martin">✉ Send Me an Email</a>
+            <a class="btn btn-secondary" href="https://github.com/uushonamartin-tech" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Martin. Built with curiosity and code.</div>
+      <div class="footer-links">
+        <a href="#home">Home ↑</a>
+        <a href="#projects">Projects</a>
+        <a href="mailto:uushonamartin16@gmail.com">Email</a>
+      </div>
     </div>
+  </footer>
 
-</section>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
 
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      menuBtn.textContent = open ? '✕' : '☰';
+    });
 
-<!-- CONTACT -->
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Open navigation');
+        menuBtn.textContent = '☰';
+      });
+    });
 
-<section id="contact">
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    <h2>Contact Me</h2>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
 
-    <p>
-        Have a question or want to get in touch?
-    </p>
+        entry.target.classList.add('visible');
 
-    <a
-        href="mailto:uushonamartin16@gmail.com"
-        class="button">
+        entry.target.querySelectorAll('.bar').forEach(bar => {
+          bar.style.width = bar.dataset.width;
+        });
 
-        📧 Send Me an Email
+        if (entry.target.classList.contains('skill')) {
+          const bar = entry.target.querySelector('.bar');
+          if (bar) bar.style.width = bar.dataset.width;
+        }
 
-    </a>
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
 
-    <p class="email">
-        uushonamartin16@gmail.com
-    </p>
-
-
-    <div class="socials">
-
-        <a href="mailto:uushonamartin16@gmail.com">
-            📧 Email
-        </a>
-
-        <a href="#home">
-            🏠 Home
-        </a>
-
-        <a href="#projects">
-            💻 Projects
-        </a>
-
-    </div>
-
-</section>
-
-
-<footer>
-
-    <p>
-        © 2026 Martin. All rights reserved.
-    </p>
-
-    <p>
-        Built with HTML, CSS & JavaScript.
-    </p>
-
-</footer>
-
-
-<script src="script.js"></script>
-
+    document.querySelectorAll('.reveal, .skill').forEach(element => {
+      observer.observe(element);
+    });
+  </script>
 </body>
-
 </html>

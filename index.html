@@ -482,6 +482,27 @@
       .panel,.project { padding: 22px; }
       .footer-inner { flex-direction: column; text-align: center; }
     }
+  
+/* Portfolio upgrade */
+:focus-visible { outline: 3px solid var(--purple); outline-offset: 4px; }
+.logo { transition: transform .25s, text-shadow .25s; }
+.logo:hover { transform: translateY(-2px); text-shadow: 0 0 22px rgba(105,167,255,.55); }
+.code-card { animation: card-float 6s ease-in-out infinite; }
+.project { display:flex; flex-direction:column; min-height:100%; }
+.project::before { content:""; position:absolute; inset:0 0 auto; height:3px; background:var(--gradient); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+.project:hover::before { transform:scaleX(1); }
+.profile-mark { width:94px; height:94px; display:grid; place-items:center; margin:0 auto 20px; border-radius:28px; background:linear-gradient(135deg,rgba(105,167,255,.25),rgba(167,139,250,.3)); border:1px solid var(--border); font-size:2.5rem; font-weight:900; }
+.resume-grid { display:grid; grid-template-columns:.7fr 1.3fr; gap:22px; }
+.resume-card { background:linear-gradient(145deg,#141e33,#0c111e); border:1px solid var(--border); border-radius:20px; padding:28px; }
+.resume-card p { color:var(--muted); margin-top:10px; }
+.resume-points { display:grid; gap:12px; margin:18px 0 22px; }
+.resume-points span { color:var(--blue); margin-right:8px; }
+.social-links { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:18px; }
+.availability-note { color:#a9f0ce; font-size:.88rem; margin-top:15px; }
+@keyframes card-float { 0%,100% { transform:translateY(0) rotate(-3deg); } 50% { transform:translateY(-8px) rotate(-2deg); } }
+@media(max-width:760px) { .resume-grid { grid-template-columns:1fr; } .code-card { animation-duration:8s; } }
+@media(prefers-reduced-motion:reduce) { .code-card { animation:none; } .project,.project::before,.logo { transition:none; } }
+
   </style>
 </head>
 
@@ -499,6 +520,7 @@
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
+        <a href="#resume">CV &amp; Profile</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -682,6 +704,41 @@
         </div>
         <div style="text-align:center;margin-top:30px" class="reveal">
           <a class="btn btn-secondary" href="https://github.com/uushonamartin-tech" target="_blank" rel="noopener noreferrer">Visit My GitHub Profile ↗</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="resume">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-label">Professional profile</div>
+          <h2 class="section-title">A little more <span class="gradient-text">about my direction.</span></h2>
+          <p class="section-intro">I'm building practical skills through projects and consistent learning. My professional CV is being prepared.</p>
+        </div>
+        <div class="resume-grid">
+          <article class="resume-card reveal" style="text-align:center">
+            <div class="profile-mark" aria-label="Martin initials">M.</div>
+            <h3>Martin</h3>
+            <p>Aspiring Software Developer</p>
+            <p>Web · Android · Linux · Ethical Cybersecurity</p>
+            <div class="social-links">
+              <a class="btn btn-secondary" href="https://github.com/uushonamartin-tech" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              <a class="btn btn-secondary" href="mailto:uushonamartin16@gmail.com">Email ✉</a>
+            </div>
+          </article>
+          <article class="resume-card reveal">
+            <h3>My professional goals</h3>
+            <p>I'm working toward becoming a capable developer by learning through hands-on practice and building useful projects.</p>
+            <div class="resume-points">
+              <div><span>✓</span> Responsive websites and user-friendly interfaces</div>
+              <div><span>✓</span> Android and cross-platform app development</div>
+              <div><span>✓</span> Linux, networking and responsible security learning</div>
+              <div><span>✓</span> Continuous practice, testing and improvement</div>
+            </div>
+            <a class="btn btn-primary" href="mailto:uushonamartin16@gmail.com?subject=Request%20for%20Martin%27s%20CV">Request My CV ✉</a>
+            <p class="availability-note">A downloadable CV will be added when the PDF is ready.</p>
+          </article>
         </div>
       </div>
     </section>
